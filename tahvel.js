@@ -6,7 +6,7 @@
 // @author       Travis Sova
 // @match        *tahvel.edu.ee*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=tampermonkey.net
-// @grant        none
+// @grant        GM_addStyle
 // ==/UserScript==
 
 (function () {
@@ -43,14 +43,18 @@
 
     function login(){
         document.getElementById("login-button").click();
-        addBackground()
+    }
 
+    function logDelete(){
         var loginDelete = document.querySelectorAll('#main-toolbar, #content-and-sidenav-wrapper, #footer, .md-dialog-size > md-toolbar:nth-child(1)');
-        var loginBlur = document.querySelectorAll('.md-dialog-size, md-content.md-padding');
 
         loginDelete.forEach(function (element) {
             element.style.display = "none";
         });
+    }
+
+    function logBlur(){
+        var loginBlur = document.querySelectorAll('.md-dialog-size, md-content.md-padding');
 
         loginBlur.forEach(function (element) {
             element.setAttribute("style", "background: rgba(0, 0, 0, 0.1); backdrop-filter: blur(40.33333206176758px);")
@@ -58,12 +62,18 @@
     }
 
     if (!checkCookie("XSRF-TOKEN")) {
-        login()
+        login();
+        addBackground();
+        logDelete();
+        logBlur();
     }
 
     document.querySelector('#user-menu-button').addEventListener("click", function() {
         document.querySelector('#user-menu-content > md-menu-item:nth-child(4) > button:nth-child(1)').addEventListener("click", function() {
-            login()
+            login();
+            addBackground();
+            setTimeout(logDelete, 840)
+            setTimeout(logBlur, 840)
         });
     });
 
