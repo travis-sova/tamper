@@ -36,22 +36,25 @@
 
     function addBackground() {
         let newDiv = document.createElement("div");
-        newDiv.setAttribute("style", "background: url('https://images.pexels.com/photos/417202/pexels-photo-417202.jpeg?w=1920&h=1080'); z-index: 80; height: 100%; width: 100%; position: fixed;");
+        newDiv.setAttribute("style", "background: url('https://wallpaperaccess.com/full/235700.jpg'); z-index: 80; height: 100%; width: 100%; position: fixed; background-repeat: no-repeat; background-size: cover;");
         document.body.prepend(newDiv);
     }
 
 
     function login(){
-
+        document.getElementById("login-button").click();
         addBackground()
 
-        var loginDelete = document.querySelectorAll('#main-toolbar, #content-and-sidenav-wrapper, #footer');
+        var loginDelete = document.querySelectorAll('#main-toolbar, #content-and-sidenav-wrapper, #footer, .md-dialog-size > md-toolbar:nth-child(1)');
+        var loginBlur = document.querySelectorAll('.md-dialog-size, md-content.md-padding');
 
         loginDelete.forEach(function (element) {
             element.style.display = "none";
         });
 
-        document.getElementById("login-button").click();
+        loginBlur.forEach(function (element) {
+            element.setAttribute("style", "background: rgba(0, 0, 0, 0.1); backdrop-filter: blur(40.33333206176758px);")
+        });
     }
 
     if (!checkCookie("XSRF-TOKEN")) {
